@@ -1,5 +1,6 @@
-# Load, compile and clarify taxonomy of lots
-# code by Traci P. DuBose, John Pfeiffer, and Sean Keogh
+##############################################################################
+#APPENDIX 1.2: R script to prepare refined data for analysis (lines 15707-23556)
+##############################################################################
 
 # load necessary libraries
 library(sf); library(tidyverse); library(scales) # load necessary libraries.
