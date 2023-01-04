@@ -1,5 +1,5 @@
 ##############################################################################
-#APPENDIX 1.2: R script to prepare refined data for analysis (lines 15707-23556)
+#APPENDIX 1.2: R script to prepare refined data for analysis 
 ##############################################################################
 
 # load necessary libraries
@@ -14,17 +14,19 @@ library(nhdplusTools) #install.packages("devtools"); devtools::install_github("U
 # code to download spatial databases (WBD and the NHDPlusV2)
 # run these once
 outdirNHD<-'nhdPlusV2/'
+# SMK this function does not work for me
+# downloaded nhdplusv2 - https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/Data/NationalData/NHDPlusV21_NationalData_Seamless_Geodatabase_Lower48_07.7z
 download_nhdplusv2(
   outdir,
   url = paste0("https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/",
-    "Data/NationalData/NHDPlusV21_NationalData_Seamless", "_Geodatabase_Lower48_07.7z"),
+               "Data/NationalData/NHDPlusV21_NationalData_Seamless", "_Geodatabase_Lower48_07.7z"),
   progress = TRUE
 )
 outdirWBD<-'spatial data/'
 download_wbd(
   outdirWBD,
   url = paste0("https://prd-tnm.s3.amazonaws.com/StagedProducts/",
-    "Hydrography/WBD/National/GDB/WBD_National_GDB.zip"),
+               "Hydrography/WBD/National/GDB/WBD_National_GDB.zip"),
   progress = TRUE
 )
 
@@ -33,6 +35,7 @@ PATH_OpenRefineOutput <- '3_refined.csv'
 PATH_NHDv2 <- paste0(outdirNHD,'NHDPlusV21_National_Seamless_Flattened_Lower48.gdb')
 PATH_WBD <- paste0(outdirWBD,'WBDNational.gdb/')
 wd <-"~/Desktop/IZ_NMNH/MusselMuseum/" # PUT YOUR WORKING DIRECTORY HERE
+PATH_sppranges <- paste0(wd,'species ranges/')
 
 #load the data
 occ <- read_csv(PATH_OpenRefineOutput, trim_ws = TRUE, col_types = 'cccccccccccdccc') %>%
@@ -160,11 +163,16 @@ mo.decs %>% as_tibble() %>% count(state_mismatch)
 ## or had NA as the verbatim state
 
 # huc10 is the dataframe that matches occurrences with hucs -- very large
+# SMK had to change to PATH_WBD<- 'spatial data/WBD_National_GDB.gdb'
 huc10<-read_sf(dsn=PATH_WBD, layer='WBDHU10') %>%
   mutate(huc2=substr(huc10,1,2),
          huc4=substr(huc10,1,4),
          huc6=substr(huc10,1,6),
          huc8=substr(huc10,1,8))
+
+## SMK needs this workaround to prevent ERROR: Loop 0 is not valid: Edge x has duplicate vertex with edge y
+# see https://github.com/r-spatial/sf/issues/1762
+sf_use_s2(FALSE)
 
 # Join the occurrence data with the WBD  -----
 # create a spatial dataframe and join it with the huc10 dataset
@@ -225,12 +233,12 @@ huc8_names<-read_sf(dsn = PATH_WBD, layer='WBDHU8') %>%
 temp_geo<-all_occs1 %>% 
   # removing columns not needed
   dplyr::select(-shape_Area, -shape_Length, -globalid, -humod, 
-         -areasqkm, -areaacres, -referencegnis_ids, -states,
-         -sourceoriginator, -sourcefeatureid, -sourcedatadesc, -tnmid, 
-         -metasourceid, -loaddate, -ID) %>%
+                -areasqkm, -areaacres, -referencegnis_ids, -states,
+                -sourceoriginator, -sourcefeatureid, -sourcedatadesc, -tnmid, 
+                -metasourceid, -loaddate, -ID) %>%
   dplyr::select(rowid, Institution, Cat_No, 
-         verbatim_name, refined_name, 
-         everything()) %>%
+                verbatim_name, refined_name, 
+                everything()) %>%
   rename(huc10_name=name) %>%
   left_join(huc2_names, by='huc2') %>% 
   left_join(huc4_names, by='huc4') %>%
@@ -259,8 +267,8 @@ not_georeffed<-bind_rows(mo.dec, converted.dec) %>%
   distinct(rowid, .keep_all=T) %>% #remove any duplicates
   dplyr::select(-Longitude,-Latitude) %>%
   dplyr::select(rowid, Institution, Cat_No,  
-         verbatim_name, refined_name, 
-         everything()) %>%
+                verbatim_name, refined_name, 
+                everything()) %>%
   rename(Latitude=Lat_orig, Longitude=Long_orig)
 
 occ_fin <- not_georeffed %>%
@@ -276,8 +284,8 @@ occ_fin <- not_georeffed %>%
                                   state_mismatch==0~F), 
          converted=ifelse(is.na(converted), F, converted),
          outside_NHD=dplyr::case_when(is.na(standardized_latitude)~NA,
-                               is.na(huc2)~T,
-                               !is.na(huc2)~F)) %>%
+                                      is.na(huc2)~T,
+                                      !is.na(huc2)~F)) %>%
   #select(state_mismatch, converted, outside_NHD) %>% summary()
   #grouping flags at end of dataframe
   relocate(.after='VE_MA', converted, state_mismatch, outside_NHD)
@@ -288,8 +296,10 @@ which(duplicated(occ_fin$rowid))
 ##### TAXONOMY SECTION ######
 ### Running all the records through the GBIF Taxonomy Backbone ####
 
-#identify unique species names in the data to minimize calls to name_backbone
-unique_refined_name <- unique(occ_fin$refined_name)
+# identify unique species names in the data to minimize calls to name_backbone
+# Had to remove NA's as it broke the for loop below
+unique_refined_name <- occ_fin %>% drop_na(refined_name)
+unique_refined_name <- unique(unique_refined_name$refined_name)
 
 #start the for loop - take each unique name, search gbif backbone, return and keep the results
 mussel_taxa_key <- NULL #initialize an empty dataframe to be filled
@@ -299,10 +309,13 @@ for(u in unique_refined_name){
   mussel_taxa_key<-bind_rows(temp_df, mussel_taxa_key) #build the dataframe
 }
 
+# If not deleted this causes TWO DIFFERENT verbatim_name column 'verbatim_name.x' & 'verbatim_name.y'
+occ_fin<- dplyr::select(occ_fin, -verbatim_name)
+
 # join the key with the museum data using the column verbatim_name
 occ_fin<-left_join(occ_fin, mussel_taxa_key, 
                    by="refined_name") %>%
-  dplyr::select(-ends_with("Key")) #don't want to keep gbif keys, so select coulumns that do not end with "Key"
+  dplyr::select(-ends_with("Key")) #don't want to keep gbif keys, so select columns that do not end with "Key"
 
 ### UPDATE GBIF TAXONOMY TO US CHECKLIST ####
 
@@ -326,6 +339,7 @@ occ_fin["species"][occ_fin["species"]== "Toxolasma pullum"] <- "Toxolasma pullus
 
 #V. pleasii is considered a synonym of V. ellipsiformis in GBIF backbone (not sure why). Using the verbatim names col I pulled the pleasi samples out of ellipsifromis.
 occ_fin["species"][occ_fin["verbatim_name"]== c("Venustaconcha  pleasii", "Venustaconcha pleasi", "Venustaconcha pleasi (Marsh, 1891)", "Venustaconcha pleasii", "Venustaconcha pleasii (Marsh 1891)", "Venustaconcha pleasii (Marsh, 1891)")] <- "Venustaconcha pleasii" 
+
 
 # add tribe and subfamily assignments
 #read in US CHECKLIST 
@@ -360,3 +374,193 @@ occ_species <- occ_fin %>% filter(species %in% checklist_species)
 
 #output all species-level records
 write.csv(occ_species, file = paste0(wd, "5b_species_records.csv"), row.names = F)
+
+####
+# The following code was run by Sean Keogh - keogh026@umn.edu
+####
+
+# read in both csvs
+occur = readr::read_csv(paste0(wd,"5b_species_records.csv")) 
+all = readr::read_csv(paste0(wd,"5a_all_records.csv")) 
+
+## flag duplicate collections
+# first flag duplicates for records that do not have species ID's
+no_species<-all %>% 
+  filter(is.na(species))
+# filter based on refined name, institution, date, locality, lat, long,
+library(campfin)
+na_vals<-no_species[c("rowid","Institution","refined_name","Country","State","Locality","standardized_latitude","standardized_longitude","Month","Day","Year")]
+# one duplicate will remain 'FALSE' others flagged as 'TRUE'
+na_flag<-flag_dupes(na_vals, -rowid, .both = FALSE)
+na_flag<-na_flag[c("rowid","dupe_flag")]
+no_species<-inner_join(no_species,na_flag, by='rowid')
+# now flag duplicates that do have species ID's (5b_species_records.csv)
+oc_dupes<-occur[c("rowid","Institution","species","Country","State","Locality","standardized_latitude","standardized_longitude","Month","Day","Year")]
+# one duplicate will remain 'FALSE' others flagged as 'TRUE'
+oc_flag<-flag_dupes(oc_dupes, -rowid, .both = FALSE)
+oc_flag<-oc_flag[c("rowid","dupe_flag")]
+occur<-inner_join(occur,oc_flag, by='rowid')
+
+#Row bind occur and no_species to compile 5a_all_records.csv
+all<-bind_rows(occur,no_species)
+
+
+### FLAG & CHANGE SPECIES NAME FOR RECENTLY DESCRIBED, ALLOPATRIC SPECIES
+# species updated in 'species_update' column
+library(parallel)
+library(readxl)
+
+sppup_df <- read_xlsx('species_updated_citations.xlsx',
+                      sheet='species_update',na=c('NA',''))
+dir.create('sppup_csvs')
+
+# For loop to flag (True/False in InRange col) old taxonomy & provide path to update to new taxonomy
+# see 'species_updated_citations.xlsx' for details
+mclapply(1:nrow(sppup_df),mc.cores=2,function(ii){
+  # ii=1
+  cat(ii, '\n')
+  old_taxon <- sppup_df[[ii,'Change_this_taxon']]
+  new_taxon <- sppup_df[[ii,'To_this_taxon']]
+  range_shp = sf::st_read(paste0(wd,"taxonomy_ranges/",new_taxon,".shp")) 
+  
+  spdf = range_shp %>% as("Spatial")
+  spdf$species<-old_taxon
+  clean<-occur %>%
+    filter(species==old_taxon)
+  clean$standardized_longitude<-as.numeric(clean$standardized_longitude)
+  clean$standardized_latitude<-as.numeric(clean$standardized_latitude)
+  clean<- clean %>%
+    drop_na(standardized_longitude) %>%
+    drop_na(standardized_latitude)
+  clean$InRange<-clean %>%
+    cc_iucn(
+      range = spdf,
+      lon = "standardized_longitude",
+      lat = "standardized_latitude",
+      species = "species",
+      buffer = 0, # buffer in decimal degrees
+      value = "flagged")
+  #### write your new file
+  nrow(clean %>% filter(InRange=='TRUE'))
+  write_csv(clean,file = paste0('sppup_csvs/',old_taxon,'to',new_taxon,'.csv'))
+})
+
+
+# Aggregate updated taxonomy
+mussel_newtaxa<-NULL
+for (i in 1:nrow(sppup_df)) {
+  # ii=1
+  cat(i, '\n')
+  old_taxon <- sppup_df[[i,'Change_this_taxon']]
+  new_taxon <- sppup_df[[i,'To_this_taxon']]
+  sppup_sp<-read.csv(paste0("sppup_csvs/",old_taxon,"to",new_taxon,".csv"),header=TRUE)
+  sppup_sp<-sppup_sp %>% mutate(species_update = ifelse(InRange == TRUE,new_taxon, old_taxon))
+  sppup_sp<-sppup_sp %>% filter(InRange==TRUE) %>%  dplyr::select(rowid, species_update)
+  mussel_newtaxa<-bind_rows(sppup_sp, mussel_newtaxa) #build the dataframe
+}
+occur$species_update<-occur$species
+occur<-occur %>%
+  left_join(mussel_newtaxa, by = "rowid") %>%
+  mutate(species_update = coalesce(species_update.y, species_update.x)) %>%
+  dplyr::select(-species_update.y, -species_update.x)
+
+# manual check
+num_flagged<-NULL
+for (i in 1:nrow(sppup_df)) {
+  # ii=1
+  cat(i, '\n')
+  old_taxon <- sppup_df[[i,'Change_this_taxon']]
+  new_taxon <- sppup_df[[i,'To_this_taxon']]
+temp_df<-nrow(occur %>% filter(species==old_taxon & species_update==new_taxon))
+num_flagged<-rbind(temp_df, num_flagged) #build the dataframe
+}
+
+# Another check
+del<-occur %>% 
+  mutate(tf = species == species_update) %>% 
+  filter(tf =='FALSE')
+nrow(del)
+# ^ This filter updated 1120 records 
+# check number of species = 302
+length(unique(occur$species))
+length(unique(occur$species_update))
+
+### FLAG RECORDS THAT OCCUR OUTSIDE SPECIES KNOWN RANGES
+
+# Read in FMCS names
+mussel.names <- read_csv(paste0(wd,"6a_FMCS_NAMES_LIST.csv"), trim_ws = TRUE, col_types = cols(.default = "c"))
+
+# Remove Disconaias fimbriata as it as no occurrences in our dataset and therefore breaks the for loop
+mussel.names<-mussel.names %>% 
+  subset(FMCS_NAME !='Disconaias fimbriata')
+
+#species list
+mussel_sp<-mussel.names$FMCS_NAME
+# run for loop for all species aside from Disconaias to flag records
+species1='Actinonaias ligamentina'
+
+# Create new directory for csv files
+dir.create('spp_csvs')
+
+# Flagging step - occurrences outside known ranges of species
+for(species1 in mussel_sp){
+  range_shp = sf::st_read(dsn = paste0("species_ranges/shapefiles/",species1,".shp")) 
+  spdf = range_shp %>% as("Spatial")
+  spdf$species<-paste(species1)
+  clean<-occur %>%
+    filter(species_update==species1)
+  clean$species<-clean$species_update # for some reason cc_iucn needs column names to be 'species'
+  ## make all lat-long records numeric and drop NA's
+  clean$standardized_longitude<-as.numeric(clean$standardized_longitude)
+  clean$standardized_latitude<-as.numeric(clean$standardized_latitude)
+  clean<- clean %>%
+    drop_na(standardized_longitude) %>%
+    drop_na(standardized_latitude)
+  #now flag records that occur outside species range
+  clean$InRange<-clean %>%
+    cc_iucn(
+      range = spdf,
+      lon = "standardized_longitude",
+      lat = "standardized_latitude",
+      species = "species",
+      buffer = 0, # buffer in decimal degrees
+      value = "flagged")
+  ### only save 'TRUE' flags
+  truth<- clean %>%
+    filter(InRange=="TRUE")
+  #### write your new file, only keep 'TRUE' records
+  write_csv(truth,file = paste0('spp_csvs/',species1,".csv"))
+}
+
+## combine all records to master spreadsheet
+temp <- list.files(path=paste0(wd,"spp_csvs/"),pattern="*.csv")
+df <- data.frame(rowid=numeric(0), InRange=numeric(0))
+for (i in 1:length(temp)) {
+  tmp <- read.csv(paste0('spp_csvs/',temp[i]))
+  df <- rbind(df, tmp[, c("rowid", "InRange")])
+}
+
+#### Add TRUE records to InRange field of master spreadsheet
+library(naniar)
+occur<- full_join(occur,df, by='rowid')
+
+# Change all NA values to FALSE
+occur<- occur %>%
+  replace_na(list(InRange = FALSE)) 
+# now change all false values without georef info to NA
+InRange<-ifelse(is.na(occur$standardized_latitude) == TRUE, occur$InRange == NA, occur$InRange)
+occur<-occur %>% dplyr::select(-InRange)
+occur<-cbind.data.frame(occur,InRange)
+### add InRange and species_update columns to all dataset
+
+all<-left_join(all,occur[,c("rowid","species_update","InRange")],by="rowid")
+all<-arrange(all,rowid)
+occur<-arrange(occur,rowid)
+
+# check InRange flags
+dim(occur %>% filter(InRange=='FALSE'))
+# 11473 records flagged
+
+#write csvs
+write.csv(occur,file=paste0(wd,"5b_species_records.csv"), row.names = F)
+write.csv(all, file=paste0(wd,"5a_all_records.csv"), row.names = F)
