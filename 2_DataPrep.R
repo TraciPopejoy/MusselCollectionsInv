@@ -17,7 +17,7 @@ outdirNHD<-'nhdPlusV2/'
 # SMK this function does not work for me
 # downloaded nhdplusv2 - https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/Data/NationalData/NHDPlusV21_NationalData_Seamless_Geodatabase_Lower48_07.7z
 download_nhdplusv2(
-  outdir,
+  outdirNHD,
   url = paste0("https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/",
                "Data/NationalData/NHDPlusV21_NationalData_Seamless", "_Geodatabase_Lower48_07.7z"),
   progress = TRUE
