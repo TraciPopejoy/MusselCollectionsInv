@@ -1,5 +1,5 @@
 # SYNTHESIS OF NATURAL HISTORY COLLECTIONS DATA REVEALS PATTERNS OF US FRESHWATER MUSSEL DIVERSITY AND DECLINE.
-## by John Pfeiffer, Traci P DuBose and Sean Kenough
+## by John Pfeiffer, Traci P DuBose and Sean Keogh
 Natural history collections are uniquely positioned to chronicle biodiversity changes across time and space and are a fundamental data source in taxon-based research and conservation, especially for imperiled freshwater mussels. We used the following code to aggregate specimen records from 45 US natural history collections and enriched these records by programmatically standardizing taxonomic information, flagging potentially problematic records, and joining records with freshwater-specific spatial frameworks (e.g., hydrological units and stream segments) and their associated metadata (e.g., area, stream order, discharge,
 velocity). The assembled dataset can be found at (this Dryad Repository)[https://datadryad.org/stash/dataset/doi:10.5061/dryad.c2fqz61cg] and the manuscript is currently available as a pre-print on bioArxiv[https://www.biorxiv.org/content/10.1101/2022.09.22.509037v1].
 
