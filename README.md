@@ -4,8 +4,8 @@ Natural history collections are uniquely positioned to chronicle biodiversity ch
 velocity). The assembled dataset can be found at [this Dryad Repository](https://datadryad.org/stash/dataset/doi:10.5061/dryad.c2fqz61cg) and the manuscript is currently available as [a pre-print on bioArxiv](https://www.biorxiv.org/content/10.1101/2022.09.22.509037v1).
 
 ## Data Processing and Analysis Scripts
-1_ :JSON script to refine raw collections data for data prep (lines 10-15699)  
-2_Build_species_shapefiles.R: an R script to build shapefiles of species ranges to be used to filter out lots outside of a species known range in 3_DataPrep.R.  
+1_ :JSON script to refine raw collections data for data prep
+2_Build_species_shapefiles.R: an R script to build shapefiles of species ranges
 3_DataPrep.R: an R script to prepare refined data for analysis  
 4_EcolAttributSum.R: an R script to create ecological attributes  
 5_ResultsFigures.R: an R script to report results and figures  
