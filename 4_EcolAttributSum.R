@@ -1,12 +1,12 @@
 # APPENDIX 1.3: R script to create ecological attributes (lines 23559-23731)
 ##############################################################################
 # Based on code from the National Fishes Vulnerability Assessment - Revised by Sam Silknetter, 03April2020
-# edited on 2022Jan25 by TPD
 library(tidyverse);library(sf)
+library(cowplot); library(maps)
 
 # bring in the occurrence data
-occs_sp<-read.csv('5b_species_records.csv')
-PATH_WBD <- 'wbd/WBDNational.gdb/'
+occs_sp<-read.csv('3d_species_records.csv')
+PATH_WBD <- '/Users/PfeifferJ/Desktop/GitHub/MusselCollectionsInv/spatial_data/WBD_National_GDB.gdb'
 huc8<-read_sf(dsn=PATH_WBD, layer='WBDHU8')
 crs.geo <- st_crs("+proj=longlat +ellps=WGS84 +datum=WGS84")
 crs.albers <- st_crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=km +no_defs")
@@ -165,7 +165,7 @@ s3<-geo_traits %>%
 s3 %>% filter(is.na(after_per)|is.na(n_sc_lots)) %>% pull(taxa)
 s3 %>% filter(after_per==max(after_per))
 s3 %>% filter(per.change==max(per.change)|per.change==min(per.change))
-write.csv(s3, 'Supplement3_traits_22020721.csv', row.names = F)
+write.csv(s3, 'species_attributes.csv', row.names = F)
 
 # missing taxa from this analysis -----
 unique(occs_sp$species_update)[which(!c(unique(occs_sp$species_update)%in%robust.spp$species))]
@@ -211,11 +211,16 @@ huc8.space<-occs_sp %>%
   left_join(huc8, by=c("huc8_real"="huc8")) %>% select(-huc8_real, -shape, -tnmid)
 
 write.csv(huc8.space,
-          'Supplement4_huc8_summarization.csv', row.names=F)
+          'huc8_attributes.csv', row.names=F)
 
 # Map Figures ----------------------
-library(cowplot); library(maps)
-huc8<-read_sf(dsn=PATH, layer='WBDHU8') %>%
+#download state map
+tmp_dl <- tempfile()
+download.file("http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_us_state_20m.zip", tmp_dl)
+unzip(tmp_dl, exdir='.')
+
+
+huc8<-read_sf(dsn=PATH_WBD, layer='WBDHU8') %>%
   # code to remove aleutian islands and other E hemisphere hucs
   mutate(huc6=substr(huc8,1,6)) %>% 
   filter(huc6 < 190000, huc8 != 19030103 )
@@ -230,7 +235,7 @@ usa_l48<-states %>%
   filter(!(NAME %in% c('Alaska','Hawaii')),
          !grepl('Rico', NAME))
 # identify alaska huc8
-alas<-read_sf(dsn=PATH, layer='WBDHU8') %>%
+alas<-read_sf(dsn=PATH_WBD, layer='WBDHU8') %>%
   # code to remove aleutian islands and other E hemisphere hucs
   mutate(huc6=substr(huc8,1,6)) %>%
   filter(huc6>= 19000, huc6 < 191000,  huc8 != 19030103)
