@@ -1,0 +1,3436 @@
+[
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          " United States"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "United States"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "United States of America"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "US"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Usa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "USA "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [],
+        "fromBlank": true,
+        "fromError": false,
+        "to": "USA"
+      }
+    ],
+    "description": "Mass edit cells in column Country"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Florida",
+          " Florida",
+          "FLORIDA",
+          "Florida ?",
+          "florida"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Florida"
+      },
+      {
+        "from": [
+          "Arkansas",
+          "ARKANSAS",
+          " Arkansas",
+          "ARKANSAS?",
+          "arkansas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arkansas"
+      },
+      {
+        "from": [
+          "Alabama",
+          "ALABAMA",
+          " Alabama",
+          "Alabama?",
+          "alabama"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alabama"
+      },
+      {
+        "from": [
+          "Tennessee",
+          " Tennessee",
+          "TENNESSEE",
+          "Tennessee ",
+          "tennessee"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tennessee"
+      },
+      {
+        "from": [
+          "New York",
+          " New York",
+          "NEW YORK",
+          "New YOrk",
+          "New York?"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New York"
+      },
+      {
+        "from": [
+          "Pennsylvania",
+          " Pennsylvania",
+          "PENNSYLVANIA",
+          "Pennsylvania?"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pennsylvania"
+      },
+      {
+        "from": [
+          "Minnesota",
+          "Minnesota\n",
+          " Minnesota",
+          "MINNESOTA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Minnesota"
+      },
+      {
+        "from": [
+          "Iowa",
+          " Iowa",
+          "IOWA",
+          "iowa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Iowa"
+      },
+      {
+        "from": [
+          "Illinois",
+          " Illinois",
+          "ILLINOIS",
+          "illinois"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      },
+      {
+        "from": [
+          "KY",
+          " KY",
+          "Ky",
+          "KY "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kentucky"
+      },
+      {
+        "from": [
+          "MISSISSIPPI",
+          "Mississippi",
+          " Mississippi",
+          "MIssissippi"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mississippi"
+      },
+      {
+        "from": [
+          "Ohio",
+          " Ohio",
+          "OHIO",
+          "ohio"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      },
+      {
+        "from": [
+          "Georgia",
+          " Georgia",
+          "GEORGIA",
+          "Georgia "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      },
+      {
+        "from": [
+          "North Carolina",
+          "North Carolina ",
+          " North Carolina",
+          "NORTH CAROLINA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Carolina"
+      },
+      {
+        "from": [
+          "West Virginia",
+          " West Virginia",
+          "West Virginia ",
+          "WEST VIRGINIA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "West Virginia"
+      },
+      {
+        "from": [
+          "Virginia",
+          "Virginia ",
+          " Virginia",
+          "VIRGINIA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      },
+      {
+        "from": [
+          "Oregon",
+          " Oregon",
+          "OREGON",
+          "Oregon?"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oregon"
+      },
+      {
+        "from": [
+          "Maryland",
+          " Maryland",
+          "Maryland ",
+          "MARYLAND"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maryland"
+      },
+      {
+        "from": [
+          "FL",
+          " FL",
+          "Fl",
+          "FL."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Florida"
+      },
+      {
+        "from": [
+          "New Jersey",
+          "NEW JERSEY",
+          " New Jersey",
+          "New Jersey "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Jersey"
+      },
+      {
+        "from": [
+          "Texas",
+          " Texas",
+          "TEXAS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Texas"
+      },
+      {
+        "from": [
+          "Alaska",
+          " Alaska",
+          "ALASKA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alaska"
+      },
+      {
+        "from": [
+          "Massachusetts",
+          " Massachusetts",
+          "MASSACHUSETTS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Massachusetts"
+      },
+      {
+        "from": [
+          "Oklahoma",
+          " Oklahoma",
+          "OKLAHOMA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oklahoma"
+      },
+      {
+        "from": [
+          "South Carolina",
+          " South Carolina",
+          "SOUTH CAROLINA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "South Carolina"
+      },
+      {
+        "from": [
+          "AL",
+          " AL",
+          "Al"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alabama"
+      },
+      {
+        "from": [
+          "Kansas",
+          " Kansas",
+          "KANSAS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kansas"
+      },
+      {
+        "from": [
+          "AR",
+          " AR",
+          "AR "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arkansas"
+      },
+      {
+        "from": [
+          "District of Columbia",
+          " District of Columbia",
+          "DISTRICT OF COLUMBIA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "District of Columbia"
+      },
+      {
+        "from": [
+          "Kentucky",
+          " Kentucky",
+          "KENTUCKY"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kentucky"
+      },
+      {
+        "from": [
+          "Michigan",
+          " Michigan",
+          "MICHIGAN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Michigan"
+      },
+      {
+        "from": [
+          "Washington, D.C.",
+          " Washington DC",
+          "Washington DC"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "District of Columbia"
+      },
+      {
+        "from": [
+          "Missouri",
+          "MISSOURI",
+          " Missouri"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Missouri"
+      },
+      {
+        "from": [
+          "California",
+          " California",
+          "CALIFORNIA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "California"
+      },
+      {
+        "from": [
+          "Louisiana",
+          "LOUISIANA",
+          " Louisiana"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Louisiana"
+      },
+      {
+        "from": [
+          "VA",
+          " VA",
+          "Va"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      },
+      {
+        "from": [
+          "NC",
+          " NC",
+          "nc"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Carolina"
+      },
+      {
+        "from": [
+          "Washington",
+          " Washington",
+          "WASHINGTON"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Washington"
+      },
+      {
+        "from": [
+          "OH",
+          "Oh",
+          " OH"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      },
+      {
+        "from": [
+          "GA",
+          " GA",
+          "[GA]"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      },
+      {
+        "from": [
+          "Wisconsin",
+          " Wisconsin",
+          "WISCONSIN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Wisconsin"
+      },
+      {
+        "from": [
+          "Maine",
+          " Maine",
+          "MAINE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maine"
+      },
+      {
+        "from": [
+          "Nevada",
+          " Nevada",
+          "NEVADA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Nevada"
+      },
+      {
+        "from": [
+          "Connecticut",
+          " Connecticut",
+          "CONNECTICUT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Connecticut"
+      },
+      {
+        "from": [
+          "New Mexico",
+          " New Mexico",
+          "NEW MEXICO"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Mexico"
+      },
+      {
+        "from": [
+          " Colorado",
+          "Colorado",
+          "COLORADO"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": " Colorado"
+      },
+      {
+        "from": [
+          "Vermont",
+          " Vermont",
+          "VERMONT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vermont"
+      },
+      {
+        "from": [
+          "Indiana",
+          " Indiana",
+          "INDIANA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Indiana"
+      },
+      {
+        "from": [
+          "IA",
+          " IA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Iowa"
+      },
+      {
+        "from": [
+          "IL",
+          " IL"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      },
+      {
+        "from": [
+          "Washington, D. C.",
+          "Washington D. C."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "District of Columbia"
+      },
+      {
+        "from": [
+          "IN",
+          " IN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Indiana"
+      },
+      {
+        "from": [
+          "South Dakota",
+          " South Dakota"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "South Dakota"
+      },
+      {
+        "from": [
+          "Rhode Island",
+          " Rhode Island"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Rhode Island"
+      },
+      {
+        "from": [
+          "Utah",
+          " Utah"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Utah"
+      },
+      {
+        "from": [
+          "RI",
+          " RI"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Rhode Island"
+      },
+      {
+        "from": [
+          "SD",
+          " SD"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "South Dakota"
+      },
+      {
+        "from": [
+          "KS",
+          " KS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kansas"
+      },
+      {
+        "from": [
+          "CT",
+          " CT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Connecticut"
+      },
+      {
+        "from": [
+          "LA",
+          " LA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Lousiana"
+      },
+      {
+        "from": [
+          "TN",
+          " TN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tennessee"
+      },
+      {
+        "from": [
+          " TX",
+          "TX"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": " Texas"
+      },
+      {
+        "from": [
+          "Nebraska",
+          " Nebraska"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Nebraska"
+      },
+      {
+        "from": [
+          "MA",
+          " MA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Massachusetts"
+      },
+      {
+        "from": [
+          "ME",
+          " ME"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maine"
+      },
+      {
+        "from": [
+          "MI",
+          " MI"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Michigan"
+      },
+      {
+        "from": [
+          "MO",
+          " MO"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "missouri"
+      },
+      {
+        "from": [
+          "MS",
+          " MS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mississippi"
+      },
+      {
+        "from": [
+          "VT",
+          " VT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vermont"
+      },
+      {
+        "from": [
+          "North Dakota",
+          " North Dakota"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Dakota"
+      },
+      {
+        "from": [
+          "Arizona",
+          " Arizona"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arizona"
+      },
+      {
+        "from": [
+          "Minnesota/Wisconsin",
+          "MINNESOTA/WISCONSIN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Minnesota"
+      },
+      {
+        "from": [
+          "NY",
+          " NY"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New York"
+      },
+      {
+        "from": [
+          "New Hampshire",
+          " New Hampshire"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Hampshire"
+      },
+      {
+        "from": [
+          "ALABAMA/GEORGIA",
+          "Alabama/Georgia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alabama"
+      },
+      {
+        "from": [
+          "Idaho",
+          " Idaho"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Idaho"
+      },
+      {
+        "from": [
+          "OR",
+          " OR"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oregon"
+      },
+      {
+        "from": [
+          "PA",
+          " PA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pennsylvania"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Texas",
+          " Texas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Texas"
+      },
+      {
+        "from": [
+          "Missouri",
+          "missouri"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Missouri"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          " Colorado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Colorado"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "[Indiana or Illinois]"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Indiana"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "AK"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alaska"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Alabama/Tennessee"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alabama"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Arkanasa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arkansas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Arkansas/ Oklahoma"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arkansas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Arkansas/Indiana"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arkansas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "CA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "California"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "CN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Connecticut"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "CO"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Colorado"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Connecticut [mislocalized?]"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Connecticut"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Conneticut"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Connecticut"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "cou"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tennessee"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "DC"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "District of Columbia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "DE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Delaware"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Erie"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Florida/Georgia?"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Florida"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "GA & AL"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "GA"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "GA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "GA-FL"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Geogria"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Georgia/South Carolina"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Georia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Georiga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Georgia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "ID"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Idaho"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Illinois/ Missouri"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Illinois/Indiana"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Illonois"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Indiana/ Kentucky"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Indiana"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Jackson"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Michigan"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "KA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kansas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Kanas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kansas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "KY/IN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kentucky"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "llinois"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Illinois"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Louisana"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Louisiana"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Lousiana"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Louisiana"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Main"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maine"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Maryland & Washington DC"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maryland"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Massachussetts"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Massachusetts"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "MD"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Maryland"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "MISSISSIPPI/ALABAMA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mississippi"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "MN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Minnesota"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "MT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Montana"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "ND"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Dakota"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Nebraska"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "New Hemshire"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Hampshire"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "New York/Pennsylvania"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New York"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Newport"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vermont"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NH"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Hampshire"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NJ"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Jersey"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NM"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "New Mexico"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "North Carolina/South Carolina"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Carolina"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "North Carolina/Tennessee"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Carolina"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "North Carolina/Virginia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "North Carolina"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NV"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Nevada"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Ohio/ West Virginia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Ohio/Illinois"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Ohio/Pennsylvania"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ohio"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "OK"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oklahoma"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Oregon/Washington"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oregon"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Pennslyvania"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pennsylvania"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Pennsylvania/New York"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pennsylvania"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Pensylvania"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pennsylvania"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "SC"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "South Carolina"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "South Carolina/Georgia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "South Carolina"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "state unknown"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Tennessee/Georgia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tennessee"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Tenessee"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tennessee"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "TX/LA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Texas"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "UNKNONWN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "UNKNOWN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "UNKOWN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "UT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Utah"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Virgina"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "VIRGINIA/MISSOURI"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Viriginia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Virignia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "WA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Washington"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "West Virginia/Ohio"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "West Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "West Virignia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "West Viriginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "West Viriginia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "West Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "WI"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Wisconsin"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Williams"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Wisconsin"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Wisonsin"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Wisconsin"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "WV"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "West Virginia"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "WY"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Wyoming"
+      }
+    ],
+    "description": "Mass edit cells in column State"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          " "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "1"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "January"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "10"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "October"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "11"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "November"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "12"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "December"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "11"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "November"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "2"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "February"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "3"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "March"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "4"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "April"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "5"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "May"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "6"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "June"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "7"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "July"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "8"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "August"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "9"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "September"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "May",
+          "MAY ",
+          "MAY",
+          "may",
+          "May*",
+          "May "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "May"
+      },
+      {
+        "from": [
+          "July",
+          "July ",
+          "July*",
+          "JULY"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "July"
+      },
+      {
+        "from": [
+          "Jul",
+          "JUL ",
+          "JUL"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "July"
+      },
+      {
+        "from": [
+          "Jun",
+          "JUN ",
+          "JUN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "June"
+      },
+      {
+        "from": [
+          "Feb",
+          "FEB",
+          "FEB "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "February"
+      },
+      {
+        "from": [
+          "Dec",
+          "DEC ",
+          "DEC"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "December"
+      },
+      {
+        "from": [
+          "April",
+          "April*",
+          "April "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "April"
+      },
+      {
+        "from": [
+          "Nov",
+          "NOV ",
+          "NOV"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "November"
+      },
+      {
+        "from": [
+          "Jan",
+          "JAN ",
+          "JAN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "January"
+      },
+      {
+        "from": [
+          "Sep",
+          "SEP ",
+          "SEP"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "September"
+      },
+      {
+        "from": [
+          "Mar",
+          "MAR ",
+          "MAR"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "March"
+      },
+      {
+        "from": [
+          "Oct",
+          "OCT ",
+          "OCT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "October"
+      },
+      {
+        "from": [
+          "Apr",
+          "APR",
+          "APR "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "April"
+      },
+      {
+        "from": [
+          "Aug",
+          "AUG ",
+          "AUG"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "August"
+      },
+      {
+        "from": [
+          "September",
+          "September*"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "September"
+      },
+      {
+        "from": [
+          "December",
+          "December*"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "December"
+      },
+      {
+        "from": [
+          "Sept",
+          "SEPT"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "September"
+      },
+      {
+        "from": [
+          "August",
+          "August*"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "August"
+      },
+      {
+        "from": [
+          "February",
+          "February "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "February"
+      },
+      {
+        "from": [
+          "June",
+          "JUNE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "June"
+      },
+      {
+        "from": [
+          "October",
+          "October*"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "October"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Ju"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "June & July"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "October/December"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Septemper"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "September"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Day",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          " "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Day"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Day",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "0"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Day"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Day",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "18/21"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Day"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Day",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Day"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Preparation",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "ethanol"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "wet"
+      }
+    ],
+    "description": "Mass edit cells in column Preparation"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Year",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Year"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "03"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "March"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Month",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "06"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "June"
+      }
+    ],
+    "description": "Mass edit cells in column Month"
+  }
+]
