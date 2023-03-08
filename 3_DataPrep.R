@@ -13,33 +13,31 @@ library(nhdplusTools) #install.packages("devtools"); devtools::install_github("U
 
 # code to download spatial databases (WBD and the NHDPlusV2)
 # run these once
-outdirNHD<-'nhdPlusV2/'
-# SMK this function does not work for me
-# downloaded nhdplusv2 - https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/Data/NationalData/NHDPlusV21_NationalData_Seamless_Geodatabase_Lower48_07.7z
 download_nhdplusv2(
-  outdirNHD,
+  outdir = "nhdPlusV2",
   url = paste0("https://edap-ow-data-commons.s3.amazonaws.com/NHDPlusV21/",
                "Data/NationalData/NHDPlusV21_NationalData_Seamless", "_Geodatabase_Lower48_07.7z"),
   progress = TRUE
 )
-outdirWBD<-'spatial data/'
+
 download_wbd(
-  outdirWBD,
+  outdir = "spatial_data",
   url = paste0("https://prd-tnm.s3.amazonaws.com/StagedProducts/",
                "Hydrography/WBD/National/GDB/WBD_National_GDB.zip"),
   progress = TRUE
 )
 
 # path locations
-PATH_OpenRefineOutput <- '3_refined.csv'
-PATH_NHDv2 <- paste0(outdirNHD,'NHDPlusV21_National_Seamless_Flattened_Lower48.gdb')
-PATH_WBD <- paste0(outdirWBD,'WBDNational.gdb/')
-wd <-"~/Desktop/IZ_NMNH/MusselMuseum/" # PUT YOUR WORKING DIRECTORY HERE
+outdirNHD<-'nhdPlusV2/'
+outdirWBD<-'spatial_data/'
+PATH_OpenRefineOutput <- '3a_refined.csv'
+PATH_NHDv2 <- paste0(outdirNHD,'NHDPlusNationalData/NHDPlusV21_National_Seamless_Flattened_Lower48.gdb')
+PATH_WBD <- paste0(outdirWBD,'WBD_National_GDB.gdb/')
+wd <-"/Users/PfeifferJ/Desktop/GitHub/MusselCollectionsInv/" # PUT YOUR WORKING DIRECTORY HERE
 PATH_sppranges <- paste0(wd,'species ranges/')
 
 #load the data
-occ <- read_csv(PATH_OpenRefineOutput, trim_ws = TRUE, col_types = 'cccccccccccdccc') %>%
-  rename(Latitude=Lattitude) %>% # change the names of some columns
+occ <- read_csv(PATH_OpenRefineOutput, trim_ws = TRUE, col_types = 'ccccccccccdccc') %>%
   rowid_to_column() # add a unique number to each column as a check at the end/throughout
 
 # Flag any badly geolocated lots ----
@@ -236,9 +234,7 @@ temp_geo<-all_occs1 %>%
                 -areasqkm, -areaacres, -referencegnis_ids, -states,
                 -sourceoriginator, -sourcefeatureid, -sourcedatadesc, -tnmid, 
                 -metasourceid, -loaddate, -ID) %>%
-  dplyr::select(rowid, Institution, Cat_No, 
-                verbatim_name, refined_name, 
-                everything()) %>%
+  dplyr::select(rowid, Institution, Cat_No, orig_ident, everything()) %>%
   rename(huc10_name=name) %>%
   left_join(huc2_names, by='huc2') %>% 
   left_join(huc4_names, by='huc4') %>%
@@ -266,9 +262,7 @@ not_georeffed<-bind_rows(mo.dec, converted.dec) %>%
               mutate(Longitude=as.numeric(Longitude), Latitude=as.numeric(Latitude))) %>%
   distinct(rowid, .keep_all=T) %>% #remove any duplicates
   dplyr::select(-Longitude,-Latitude) %>%
-  dplyr::select(rowid, Institution, Cat_No,  
-                verbatim_name, refined_name, 
-                everything()) %>%
+  dplyr::select(rowid, Institution, Cat_No, orig_ident, everything()) %>%
   rename(Latitude=Lat_orig, Longitude=Long_orig)
 
 occ_fin <- not_georeffed %>%
@@ -293,31 +287,30 @@ occ_fin <- not_georeffed %>%
 nrow(occ_fin)==nrow(occ)
 which(duplicated(occ_fin$rowid))
 
+write_csv(occ_fin,"occ_fin.csv")
+
 ##### TAXONOMY SECTION ######
 ### Running all the records through the GBIF Taxonomy Backbone ####
 
 # identify unique species names in the data to minimize calls to name_backbone
 # Had to remove NA's as it broke the for loop below
-unique_refined_name <- occ_fin %>% drop_na(refined_name)
-unique_refined_name <- unique(unique_refined_name$refined_name)
+unique_orig_ident <- occ_fin %>% drop_na(orig_ident)
+unique_orig_ident <- unique(unique_orig_ident$orig_ident)
 
 #start the for loop - take each unique name, search gbif backbone, return and keep the results
 mussel_taxa_key <- NULL #initialize an empty dataframe to be filled
-for(u in unique_refined_name){
+for(u in unique_orig_ident){
   temp_df<-name_backbone(name = u) %>% #pull down data from the gbif backbone # add strict=TRUE to prevent names from being added to higher rank
-    mutate(refined_name=u) # keep track of the original name
+    mutate(orig_ident=u) # keep track of the original name
   mussel_taxa_key<-bind_rows(temp_df, mussel_taxa_key) #build the dataframe
 }
 
-# If not deleted this causes TWO DIFFERENT verbatim_name column 'verbatim_name.x' & 'verbatim_name.y'
-occ_fin<- dplyr::select(occ_fin, -verbatim_name)
-
-# join the key with the museum data using the column verbatim_name
+# join the key with the museum data using the column orig_ident
 occ_fin<-left_join(occ_fin, mussel_taxa_key, 
-                   by="refined_name") %>%
+                   by="orig_ident") %>%
   dplyr::select(-ends_with("Key")) #don't want to keep gbif keys, so select columns that do not end with "Key"
 
-### UPDATE GBIF TAXONOMY TO US CHECKLIST ####
+### UPDATE GBIF TAXONOMY TO FMCS CHECKLIST ####
 
 #update genus taxonomy 
 #Change Beringiana to Sinanodonta,Magnonaias to Megalonaias, etc.
@@ -337,16 +330,16 @@ occ_fin["species"][occ_fin["species"]== "Pleurobema altum"] <- "Pleurobema fibul
 occ_fin["species"][occ_fin["species"]== "Toxolasma cylindrellum"] <- "Toxolasma cylindrellus"
 occ_fin["species"][occ_fin["species"]== "Toxolasma pullum"] <- "Toxolasma pullus"
 
-#V. pleasii is considered a synonym of V. ellipsiformis in GBIF backbone (not sure why). Using the verbatim names col I pulled the pleasi samples out of ellipsifromis.
-occ_fin["species"][occ_fin["verbatim_name"]== c("Venustaconcha  pleasii", "Venustaconcha pleasi", "Venustaconcha pleasi (Marsh, 1891)", "Venustaconcha pleasii", "Venustaconcha pleasii (Marsh 1891)", "Venustaconcha pleasii (Marsh, 1891)")] <- "Venustaconcha pleasii" 
-
+#V. pleasii is considered a synonym of V. ellipsiformis in GBIF backbone (not sure why). Using the orig_ident col I pulled the pleasi samples out of ellipsifromis.
+occ_fin["species"][occ_fin["orig_ident"]== c("Venustaconcha  pleasii", "Venustaconcha pleasi", "Venustaconcha pleasi (Marsh, 1891)", "Venustaconcha pleasii", "Venustaconcha pleasii (Marsh 1891)", "Venustaconcha pleasii (Marsh, 1891)")] <- "Venustaconcha pleasii" 
 
 # add tribe and subfamily assignments
-#read in US CHECKLIST 
-US_checklist <- read_csv("4b_US_checklist.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
+#read in fmcs checklist doc 
+fmcs_checklist <- read_csv("3b_fmcs_checklist.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
 
 #create key to assign genera to a taxon not included in GBIF backbone (e.g. tribe subfamily)
-higher_taxon_key <- US_checklist[c("genus","tribe", "subfamily")]
+higher_taxon_key <- fmcs_checklist[c("genus","tribe", "subfamily")]
+
 #remove duplicates
 higher_taxon_key <- higher_taxon_key[!duplicated(higher_taxon_key$genus),]
 
@@ -354,42 +347,42 @@ higher_taxon_key <- higher_taxon_key[!duplicated(higher_taxon_key$genus),]
 occ_fin <- left_join(occ_fin, higher_taxon_key, by ="genus")
 
 #FILTERING OUT RECORDS OF TAXA NOT IN US CHECKLIST
-
 #create list of US CHECKLIST genera and species
-checklist_genera <- US_checklist$genus
-checklist_species <- US_checklist$species
+checklist_genera <- fmcs_checklist$genus
+checklist_species <- fmcs_checklist$fmcs_species
 
 #grab records that are in Unionidae or Margartiferidae 
 occ_fin <- occ_fin %>% filter(family == "Margaritiferidae" | family == "Unionidae")
 
-# grabs records that are identified to family-level [is.na(genus)] OR are US CHECKLIST genera AND are not ID to species [is.na(species)] OR are US CHECKLIST species  
-occ_fin <- occ_fin %>% filter(is.na(genus) | genus %in% checklist_genera & is.na(species) | species %in% checklist_species)
+# grabs records that are identified as either fmcs genera AND are not ID'd to species OR fmcs checklist species  
+occ_fin <- occ_fin %>% filter(genus %in% checklist_genera & is.na(species) | species %in% checklist_species)
 
 ### OUTPUT ALL RECORDS
-write.csv(occ_fin, file = paste0(wd,"5a_all_records.csv"), row.names = F)
+write.csv(occ_fin, file = paste0(wd,"3c_all_records.csv"), row.names = F)
 
 ###  CREATE DATA SET OF ONLY SPECIES-LEVEL OCCURENCES
-#Filter to 303 US checklist species 
+#Filter to 303 fmcs checklist species 
 occ_species <- occ_fin %>% filter(species %in% checklist_species)
 
-#output all species-level records
-write.csv(occ_species, file = paste0(wd, "5b_species_records.csv"), row.names = F)
+### OUTPUT ALL RECORDS WITH SPECIES-LEVEL ID
+write.csv(occ_species, file = paste0(wd, "3d_species_records.csv"), row.names = F)
 
 ####
 # The following code was run by Sean Keogh - keogh026@umn.edu
 ####
 
 # read in both csvs
-occur = readr::read_csv(paste0(wd,"5b_species_records.csv")) 
-all = readr::read_csv(paste0(wd,"5a_all_records.csv")) 
+all = readr::read_csv(paste0(wd,"3c_all_records.csv")) 
+occur = readr::read_csv(paste0(wd,"3d_species_records.csv")) 
+
 
 ## flag duplicate collections
 # first flag duplicates for records that do not have species ID's
 no_species<-all %>% 
   filter(is.na(species))
-# filter based on refined name, institution, date, locality, lat, long,
+# filter based on orig_ident, institution, date, locality, lat, long,
 library(campfin)
-na_vals<-no_species[c("rowid","Institution","refined_name","Country","State","Locality","standardized_latitude","standardized_longitude","Month","Day","Year")]
+na_vals<-no_species[c("rowid","Institution","orig_ident","Country","State","Locality","standardized_latitude","standardized_longitude","Month","Day","Year")]
 # one duplicate will remain 'FALSE' others flagged as 'TRUE'
 na_flag<-flag_dupes(na_vals, -rowid, .both = FALSE)
 na_flag<-na_flag[c("rowid","dupe_flag")]
@@ -401,7 +394,7 @@ oc_flag<-flag_dupes(oc_dupes, -rowid, .both = FALSE)
 oc_flag<-oc_flag[c("rowid","dupe_flag")]
 occur<-inner_join(occur,oc_flag, by='rowid')
 
-#Row bind occur and no_species to compile 5a_all_records.csv
+#Row bind occur and no_species to compile 3c_all_records.csv
 all<-bind_rows(occur,no_species)
 
 
@@ -480,7 +473,7 @@ del<-occur %>%
   mutate(tf = species == species_update) %>% 
   filter(tf =='FALSE')
 nrow(del)
-# ^ This filter updated 1120 records 
+# ^ This filter updated 1135 records 
 # check number of species = 302
 length(unique(occur$species))
 length(unique(occur$species_update))
@@ -488,14 +481,14 @@ length(unique(occur$species_update))
 ### FLAG RECORDS THAT OCCUR OUTSIDE SPECIES KNOWN RANGES
 
 # Read in FMCS names
-mussel.names <- read_csv(paste0(wd,"6a_FMCS_NAMES_LIST.csv"), trim_ws = TRUE, col_types = cols(.default = "c"))
+mussel.names <- read_csv(paste0(wd,"3b_fmcs_checklist.csv"), trim_ws = TRUE, col_types = cols(.default = "c"))
 
 # Remove Disconaias fimbriata as it as no occurrences in our dataset and therefore breaks the for loop
 mussel.names<-mussel.names %>% 
-  subset(FMCS_NAME !='Disconaias fimbriata')
+  subset(fmcs_species !='Disconaias fimbriata')
 
 #species list
-mussel_sp<-mussel.names$FMCS_NAME
+mussel_sp<-mussel.names$fmcs_species
 # run for loop for all species aside from Disconaias to flag records
 species1='Actinonaias ligamentina'
 
@@ -559,8 +552,9 @@ occur<-arrange(occur,rowid)
 
 # check InRange flags
 dim(occur %>% filter(InRange=='FALSE'))
-# 11473 records flagged
+# 9753 records flagged
 
 #write csvs
-write.csv(occur,file=paste0(wd,"5b_species_records.csv"), row.names = F)
-write.csv(all, file=paste0(wd,"5a_all_records.csv"), row.names = F)
+write.csv(all, file=paste0(wd,"3c_all_records.csv"), row.names = F)
+write.csv(occur,file=paste0(wd,"3d_species_records.csv"), row.names = F)
+
