@@ -250,7 +250,7 @@ ak_plot_n <- alas %>%
   select(huc8.y, huc8, shape, n) %>%
   mutate(log1pn=log1p(n)) %>%
   ggplot()+
-  geom_sf(aes(fill=log1pn, color=log1pn))+
+  geom_sf(aes(fill=log1pn, color=log1pn), color = NA)+
   geom_sf(data=alaska, fill=NA, color='lightgrey', size=0.2)+
   # make sure scale aligns with usa plot
   scale_fill_viridis_c('n occurrences',
@@ -267,7 +267,7 @@ usa_n<-huc8 %>%
   select(huc8.y, huc8, shape, n) %>%
   mutate(log1pn=log1p(n)) %>%
   ggplot()+
-  geom_sf(aes(fill=log1pn, color=log1pn))+
+  geom_sf(aes(fill=log1pn, color=log1pn), color = NA)+
   geom_sf(data=usa_l48, fill=NA, color='lightgrey', size=0.2)+
   scale_fill_viridis_c('n occurrences',
                        breaks=log1p(c(1,25,150,1750,7940)),
@@ -283,7 +283,7 @@ ak_plot_rich <- alas %>%
              by=c('huc8'='huc8_real')) %>%
   select(huc8.y, huc8, shape, n_species) %>%
   ggplot()+
-  geom_sf(aes(fill=n_species, color=n_species))+
+  geom_sf(aes(fill=n_species, color=n_species), color = NA)+
   geom_sf(data=alaska, fill=NA, color='lightgrey', size=0.2)+
   # make sure scale aligns with usa plot
   scale_fill_viridis_c('n species',
@@ -298,7 +298,7 @@ usa_rich<-huc8 %>%
              by=c('huc8'='huc8_real')) %>%
   select(huc8.y, huc8, shape, n_species) %>%
   ggplot()+
-  geom_sf(aes(fill=n_species, color=n_species))+
+  geom_sf(aes(fill=n_species, color=n_species), color = NA)+
   geom_sf(data=usa_l48, fill=NA, color='lightgrey', size=0.2)+
   scale_fill_viridis_c('n species',
                        breaks=c(1,25,50,75,92),
@@ -329,7 +329,7 @@ ak_plot_sp <- alas %>%
              by=c('huc8'='huc8_real')) %>%
   select(huc8.y, huc8, shape, med_year, per_bin) %>%
   ggplot()+
-  geom_sf(aes(fill=per_bin, color=per_bin))+
+  geom_sf(aes(fill=per_bin, color=per_bin), color = NA)+
   geom_sf(data=alaska, fill=NA, color='lightgrey', size=0.2)+
   scale_fill_viridis_d('Percent change', na.value=NA, begin = 1, end=0,
                     labels=function(x){ifelse(is.na(x),'',x)},
@@ -345,7 +345,7 @@ usa_sp<-huc8 %>%
             by=c('huc8'='huc8_real')) %>%
   select(huc8.y, huc8, shape, med_year, per_bin) %>%
   ggplot()+
-  geom_sf(aes(fill=per_bin, color=per_bin))+
+  geom_sf(aes(fill=per_bin, color=per_bin), color = NA)+
   geom_sf(data=usa_l48, fill=NA, color='lightgrey', size=0.2)+
   scale_fill_viridis_d('Percent change', begin = 1, end=0,
                     labels=function(x){ifelse(is.na(x),'',x)},
