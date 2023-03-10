@@ -1,37 +1,33 @@
 ##############################################################################
 # APPENDIX 1.5: R script to report results and figures (lines 23926-24359)
 ##############################################################################
-
 library(tidyverse)
 library(ggplot2)
 library(ggrepel)
 library(ggpubr)
 library(ggExtra)
 library(viridis)
-
+library(effsize)
+library(jpeg)
+options(scipen=10000)
 
 # read in all records 
-records <- read_csv("5a_all_records.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
+records <- read_csv("3c_all_records.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
 
 #add col to show georef'd or not
 records <- records %>% mutate(georeferenced = ifelse(is.na(standardized_latitude) | is.na(standardized_longitude), FALSE, TRUE))
 
-#Get rid of Conservation col it got messed up in data prep script, needs to be done after Sean creates species_update col. This is a temp solution
-records <- records %>%
-  select(-conservation_status_verbatim)
-
 #read in US CHECKLIST 
-US_checklist <- read_csv("4b_US_checklist.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
+fmcs_checklist <- read_csv("3b_fmcs_checklist.csv", trim_ws = TRUE, col_types = cols(.default = "c"))
 
-#create key to assign species species their federal conservation status
-conservation_key <- US_checklist[c("species_update","con_status_simp")]
+#create conservation key to assign species species their conservation status
+conservation_key <- fmcs_checklist[c("fmcs_species","con_status_simp")]
 
 #add conservation status
-records <- left_join(records, conservation_key, by = "species_update")
+records <- left_join(records, conservation_key, by = c("species_update"="fmcs_species"))
 
 #Filter down to only unique occurnece
 occ <- records %>% filter(dupe_flag == FALSE)
-
 
 ### INSTITUTIONAL RESULTS ###
 #create summary statistics for each collection (Supplemental Information 2)
@@ -42,7 +38,7 @@ t1main <- occ %>% as_tibble() %>%
             N_species=n_distinct(species_update, na.rm = TRUE),
             N_huc8=n_distinct(huc8, na.rm = TRUE),
             Percent_species_ID = round(sum(rank %in% c('SPECIES', 'SUBSPECIES', 'VARIETY'))/N_unique_occs*100,2),
-            Percent_with_year=100-round(sum(is.na(Year))/N_unique_occs*100,2),
+            Percent_with_year=round(sum(!is.na(Year))/N_unique_occs*100,2),
             Percent_dry=round(sum(Preparation=='dry' & !is.na(Preparation))/N_unique_occs*100,2),
             Percent_geolocated=round((sum(georeferenced==T))/N_unique_occs*100,2),
             N_state_mismatch=sum(state_mismatch==T & !is.na(state_mismatch)),
@@ -53,11 +49,6 @@ t1main <- occ %>% as_tibble() %>%
 # summary statistics for each collection (Supplemental Information 2)
 t1main %>% write.csv('institutuion_stats.csv')
 
-# Median stats
-median(t1main$N_unique_occs)
-median(t1main$N_species)
-median(t1main$N_huc8)
-
 # summary statistics for all the occurrences
 t1main_total <- occ %>% as_tibble() %>%
   summarize(N_unique_occs=n(),
@@ -65,12 +56,17 @@ t1main_total <- occ %>% as_tibble() %>%
             N_species=n_distinct(species_update, na.rm = TRUE),
             N_huc8=n_distinct(huc8, na.rm = TRUE),
             Percent_species_ID = round(sum(rank %in% c('SPECIES', 'SUBSPECIES', 'VARIETY'))/N_unique_occs*100,2),
-            Percent_with_year=100-round(sum(is.na(Year))/N_unique_occs*100,2),
+            Percent_with_year=round(sum(!is.na(Year))/N_unique_occs*100,2),
             Percent_dry=round(sum(Preparation=='dry' & !is.na(Preparation))/N_unique_occs*100,2),
             Percent_geolocated=round((sum(georeferenced==T))/ N_unique_occs*100,2),
             N_state_mismatch=sum(state_mismatch==T & !is.na(state_mismatch)),
             N_outside_NHD=sum(outside_NHD==T & !is.na(outside_NHD)),
             N_outside_range=sum(InRange ==F & !is.na(InRange)))
+
+# Median institution-level stats
+median(t1main$N_unique_occs)
+median(t1main$N_species)
+median(t1main$N_huc8)
 
 #### FIGURE 1 ####
 #list of ten collections with the most lots
@@ -87,7 +83,6 @@ f1a <- ggplot(t1main, aes(x=N_species, y=N_huc8, label = Institution)) +
   ylab("n HUC8")+
   theme_bw()
 
-
 #bubble plot of Percent_with_year X Percent_geolocated with dots relative to collection size
 f1b <- ggplot(t1main, aes(x=Percent_with_year, y=Percent_geolocated, label = Institution)) +
   geom_point(aes(size = N_unique_occs, color = N_unique_occs),alpha = .65) +
@@ -102,6 +97,7 @@ figure1 <- ggarrange(f1a, f1b, ncol = 2, nrow = 1, labels="AUTO")
 #export as 8 X 3.5
 figure1
 
+
 ### TEMPORAL RESULTS ###
 
 #PER YEAR RESULTS
@@ -111,9 +107,10 @@ occ_per_year <- occ %>%
   group_by(Year) %>%
   count()
 
+min(occ_per_year$n)
 max(occ_per_year$n)
 mean(occ_per_year$n)
-min(occ_per_year$n)
+
 
 #species per year summary stats
 sp_per_year <- occ %>% 
@@ -121,9 +118,10 @@ sp_per_year <- occ %>%
   group_by(Year) %>%
   summarize(N_species=n_distinct(species_update))
 
+min(sp_per_year$N_species)
 max(sp_per_year$N_species)
 mean(sp_per_year$N_species)
-min(sp_per_year$N_species)
+
   
 # huc per year summary stats
 hucs_per_year <- occ %>% 
@@ -131,9 +129,10 @@ hucs_per_year <- occ %>%
   group_by(Year) %>%
   summarize(N_hucs=n_distinct(huc8))
 
+min(hucs_per_year$N_hucs)
 max(hucs_per_year$N_hucs)
 mean(hucs_per_year$N_hucs)
-min(hucs_per_year$N_hucs)
+
 
 ### FIGURE 2 ###
 ### A - occurrences per year
@@ -232,28 +231,33 @@ figure2
 
 
 ### TAXONOMIC RESULTS ###
-
 #backbone results
-verbatim_names <- records %>%
-  group_by(verbatim_name) %>%
+orig_identifications <- records %>%
+  group_by(orig_ident) %>%
   count()
 
 standardized_names <- records %>%
   group_by(scientificName) %>%
   count()
 
-status_count <- records %>%
-  group_by(status) %>%
-  count()
-
 match_count <- records %>%
   group_by(matchType) %>%
-  count()
+  count() %>%
+  mutate(percent = n/nrow(records)*100)
 
 mean(as.numeric(records$confidence))
 min(as.numeric(records$confidence))
 max(as.numeric(records$confidence))
 
+status_count <- records %>%
+  group_by(status) %>%
+  count() %>%
+  mutate(percent = n/nrow(records)*100)
+
+taxon_rank <- occ %>%
+  group_by(rank) %>%
+  count() %>%
+  mutate(percent = n/nrow(occ)*100)
 
 #Number of occurrences only identified to genus
 high_rank_genera <- occ %>%
@@ -261,7 +265,7 @@ high_rank_genera <- occ %>%
   group_by(genus) %>%
   count()
 
-#taxonomic accuracy summary
+#identification accuracy summary
 tax_sum <- occ %>%
   filter(!is.na(InRange)) %>%
   summarise(total=n(),
@@ -269,15 +273,25 @@ tax_sum <- occ %>%
     out_range=sum(InRange==FALSE),
     percent=round(in_range/total*100,2))
 
+#Number of occurrences per species
+sp_occ <- occ %>%
+  group_by(species_update) %>%
+  count()
+
+#median occ per species
+median(sp_occ$n)
+
 
 ### FIGURE 3 ### 
-options(scipen=10000)
-sp_trait <- read_csv("Supplement3_mussel_traits.csv", trim_ws = TRUE)
+sp_trait <- read_csv("species_attributes.csv", trim_ws = TRUE)
+#rename some columns
+sp_trait <- sp_trait %>% 
+  rename("species" = "taxa",
+         "aoo_HUC8_sqkm" = "aoo HUC8 sqkm")
 
 #add conservation status
-sp_trait <- left_join(sp_trait, conservation_key, by = c("species" = "species_update"))
-
-sp_trait$con_status_simp <- factor(sp_trait$con_status_simp, levels = c("Listed", "Not Listed")) 
+sp_trait <- left_join(sp_trait, conservation_key, by = c("species" = "fmcs_species"))
+sp_trait$con_status_simp <- factor(sp_trait$con_status_simp, levels = c("Listed", "Not Listed"))
 
 f3 <- ggplot(sp_trait, aes(x=noccs, y=aoo_HUC8_sqkm, label = species)) +
   geom_point(aes(size = noccs, color = con_status_simp,),alpha = .7) +
@@ -294,24 +308,29 @@ f3 <- ggplot(sp_trait, aes(x=noccs, y=aoo_HUC8_sqkm, label = species)) +
 
 
 f3 <- ggMarginal(f3, type="boxplot",  margins = "both", size=10, groupFill = TRUE)
-f3
+f3 #10x7
 
-# identify species with largest and smalles AOO
+# identify species with largest and smallest AOO
 sp_trait %>% 
   filter(aoo_HUC8_sqkm %in% range(sp_trait$aoo_HUC8_sqkm)) %>%
   dplyr::select(species, aoo_HUC8_sqkm)
-  
-shapiro.test(sp_trait$noccs) #not normal
+
+#test for normality, significance, effect size
 shapiro.test(sp_trait$aoo_HUC8_sqkm) #not normal
+wilcox.test(aoo_HUC8_sqkm~con_status_simp, data=sp_trait) #sig diff
+VD.A(aoo_HUC8_sqkm~con_status_simp, data=sp_trait) #large effect size
 
-wilcox.test(noccs~con_status_simp, data=sp_trait)
-wilcox.test(aoo_HUC8_sqkm~con_status_simp, data=sp_trait)
+#test for normality, significance, effect size
+shapiro.test(sp_trait$noccs) #not normal
+wilcox.test(noccs~con_status_simp, data=sp_trait) #sig diff
+VD.A(noccs~con_status_simp, data=sp_trait) #medium effect size
 
+### FIGURE 4
 f4 <- ggplot(sp_trait, aes(x= noccs, y=per.change, label = species)) +
   geom_point(aes(color = con_status_simp, size = noccs),alpha = .7) +
   geom_point(aes(size = noccs), shape = 21, alpha = .7) +
   scale_size(range = c(1, 7),  name="n occurrences", breaks = c(10,50,100, 500, 1000, 5000, 10000), labels = c("10","50","100","500","1000", "5000", "10000")) +
-  geom_text_repel(aes(size = 100, segment.alpha = .5), data = sp_trait , color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0) +
+  geom_text_repel(aes(size = 400, segment.alpha = .5), data = sp_trait , color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0) +
   guides(colour = guide_legend(title = "conservation status", override.aes = list(size=3), title.position = "top"),size = guide_legend(title.position = "top"))+
   scale_x_log10('n occurrences') +
   scale_y_continuous(breaks = seq(-80,80,20)) +
@@ -324,22 +343,26 @@ f4 <- ggplot(sp_trait, aes(x= noccs, y=per.change, label = species)) +
 
 
 f4 <- ggMarginal(f4, type="boxplot",  margins = "both", size=10, groupFill = TRUE)
-f4
+f4 #10x7
 
-shapiro.test(sp_trait$per.change) #not normal
-wilcox.test(per.change~con_status_simp, data=sp_trait)
-
+# identify species with largest and smallest per.change
 sp_trait %>% 
   filter(per.change %in% range(sp_trait$per.change)) %>%
   dplyr::select(species, per.change)
 
-#Do test on species with >50 records to remove volitile occurrence poor taxa
+#test for normality, significance, effect size
+shapiro.test(sp_trait$per.change) #not normal
+wilcox.test(per.change~con_status_simp, data=sp_trait) # not sig diff (but v close)
+VD.A(per.change~con_status_simp, data=sp_trait) # negligible
+
+#Do test on species with >50 records to remove volatile occurrence poor taxa
 sp_trait_50 <- sp_trait %>% 
   filter(noccs >= 50)
 
+#test for normality, significance, effect size
 shapiro.test(sp_trait_50$per.change) #not normal
-wilcox.test(per.change~con_status_simp, data=sp_trait_50)
-
+wilcox.test(per.change~con_status_simp, data=sp_trait_50) # sig diff
+VD.A(per.change~con_status_simp, data=sp_trait_50) #small
 
 ### Figure 5 ###
 pos <- position_jitter(width = 0.25, height = 0.1, seed = 2)
@@ -350,79 +373,82 @@ f5 <- ggplot(sp_trait, aes(x=modeStreamOrder, y=medianQA_MA, label = species)) +
   scale_size(range = c(1, 7),  name="n occurrences", breaks = c(10,50,100, 500, 1000, 5000, 10000), labels = c("10","50","100","500","1000", "5000", "10000")) +
   scale_y_log10('discharge (cfs)') +
   scale_x_continuous(breaks = seq(2,8,1)) +
-  geom_text_repel(aes(size = 100, segment.alpha = .5), data = sp_trait, color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0, position = pos) +
+  geom_text_repel(aes(size = 400, segment.alpha = .5), data = sp_trait, color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0, position = pos) +
   theme_bw()+
   guides(colour = guide_legend(title = "conservation status", override.aes = list(size=3), title.position = "top"),size = guide_legend(title.position = "top", nrow = 1))+
   scale_color_viridis_d(begin = 0, end = 1, direction = -1) +
   theme(legend.position='bottom', legend.justification = "left")+
   xlab("mode stream order")
 
+f5 <- ggMarginal(f5, type="boxplot",  margins = "y", size=10, groupFill = TRUE)
+f5 #10x7
 
-f5 <- ggMarginal(f5, type="boxplot",  margins = "both", size=10, groupFill = TRUE)
-f5
+#test for normality, significance, and effect size of mode stream order
+shapiro.test(sp_trait$modeStreamOrder) #not normal
+wilcox.test(modeStreamOrder~con_status_simp, data=sp_trait) #sig diff
+VD.A(modeStreamOrder~con_status_simp, data=sp_trait) #small
 
-# estimates of mode stream order
-sp_trait %>% 
-  filter(modeStreamOrder %in% range(sp_trait$modeStreamOrder)) %>%
-  dplyr::select(species, modeStreamOrder)
-  
-# estimates of discharge
-sp_trait %>% 
-  filter(medianQA_MA %in% range(sp_trait$medianQA_MA)) %>%
+# identify species with largest and smallest discharge
+sp_trait_qa_range <- sp_trait %>%
+  filter(species != "Sinanodonta beringiana")
+sp_trait_qa_range %>%
+  filter(medianQA_MA %in% range(sp_trait_qa_range$medianQA_MA)) %>%
   dplyr::select(species, medianQA_MA)
 
-shapiro.test(sp_trait$modeStreamOrder) #not normal
+#test for normality, significance, effect size
 shapiro.test(sp_trait$medianQA_MA) #not normal
-
-wilcox.test(modeStreamOrder~con_status_simp, data=sp_trait)
-wilcox.test(medianQA_MA~con_status_simp, data=sp_trait)
-
-
-#FIGURE 6A+B begins on line 23803
-
-#Figure 7A begins on line 23879
+wilcox.test(medianQA_MA~con_status_simp, data=sp_trait) #sig diff
+VD.A(medianQA_MA~con_status_simp, data=sp_trait) #small
 
 
-###Spatial Results
-#non flagged records assigned to hucs
+###SPATIAL RESULTS
+#non flagged occs assigned to hucs
 huc8_occs <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T) %>%
   group_by(huc8) %>%
   count()
 
+#huc8 occ summary stats
 huc8_occs %>%
   filter(n == 1)
-
 median(huc8_occs$n)
 max(huc8_occs$n)
 
+#non flagged occs and species diversity per huc
 huc8_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T) %>%
   group_by(huc8) %>%
   summarize(n_species = n_distinct(species_update))
 
+#huc8 species summary stats
 huc8_sp %>%
   filter(n_species == 1)
 
 median(huc8_sp$n_species)
+max(huc8_sp$n_species)
 
-#Figure 7B
-huc_attr <- read_csv("Supplement4_huc8_summarization.csv", trim_ws = TRUE)
+### FIGURE 6 code is in 4_EcolAttributSum.R
+
+### FIGURE 7
+huc_attr <- read_csv("huc8_attributes.csv", trim_ws = TRUE)
 
 #remove hucs without years sampled after median year
 huc_attr_full <-huc_attr %>%
   filter(per_change > -100)
 
-#median percent chnage per huc8
+#median percent change per huc8
 median(huc_attr_full$per_change)
 huc_attr_full %>% 
   filter(per_change %in% range(huc_attr_full$per_change)) %>%
-  dplyr::select(huc8_name, per_change))
+  dplyr::select(huc8_name, per_change)
 
+#FIGURE 7A code is in 4_EcolAttributSum.R
+
+#FIGURE 7B
 Figure7B <- ggplot(huc_attr_full, aes(x=n, y=per_change, label = huc8_name)) +
   geom_point(aes(color = per_change, size = n),alpha = .7) +
   scale_size(range = c(1, 10),  name="n occurrences", breaks = c(1,10, 50, 100, 500, 1000, 5000), labels = c("1","10","50", "100", "500", "1000","5000")) +
-  geom_text_repel(aes(size = 100, segment.alpha = .5), data = huc_attr_full, color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0) +
+  geom_text_repel(aes(size = 400, segment.alpha = .5), data = huc_attr_full, color = "black", show.legend = FALSE, max.overlaps = 5, min.segment.length = 0) +
   scale_x_log10("n occurrences") +
   scale_y_continuous(breaks = seq(-100,80,20)) +
   theme_bw()+
@@ -430,4 +456,92 @@ Figure7B <- ggplot(huc_attr_full, aes(x=n, y=per_change, label = huc8_name)) +
   theme(legend.position='bottom')+
   guides(size = guide_legend(nrow = 1))+
   ylab("species richness change (%)")
+
 Figure7B
+
+### TABLE 1 hackjob
+
+tenn_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc2 == "06") %>%
+  group_by(species_update) %>%
+  count()
+
+cumberland_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0513") %>%
+  group_by(species_update) %>%
+  count()
+
+mobile_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0316") %>%
+  group_by(species_update) %>%
+  count()
+
+green_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0511") %>%
+  group_by(species_update) %>%
+  count()
+
+scioto_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0506") %>%
+  group_by(species_update) %>%
+  count()
+
+muskingum_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0504") %>%
+  group_by(species_update) %>%
+  count()
+
+kentuckey_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0510") %>%
+  group_by(species_update) %>%
+  count()
+
+white_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "1101") %>%
+  group_by(species_update) %>%
+  count()
+
+licking_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051001") %>%
+  group_by(species_update) %>%
+  count()
+
+kanawha_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0505") %>%
+  group_by(species_update) %>%
+  count()
+
+salt_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071100") %>%
+  group_by(species_update) %>%
+  count()
+
+ouawatch_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080401" | huc6 == "080402") %>%
+  group_by(species_update) %>%
+  count()
+
+stfran_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080202") %>%
+  group_by(species_update) %>%
+  count()
+
+illinois_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0712" | huc4 == "0713") %>%
+  group_by(species_update) %>%
+  count()
+
+rock_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0709") %>%
+  group_by(species_update) %>%
+  count()
+
+meramec_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "07140102") %>%
+  group_by(species_update) %>%
+  count()
+
+kaskaskia_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071402") %>%
+  group_by(species_update) %>%
+  count()
