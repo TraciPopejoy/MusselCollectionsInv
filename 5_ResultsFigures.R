@@ -100,6 +100,10 @@ figure1
 
 ### TEMPORAL RESULTS ###
 
+#total occ w year
+occ_w_year <- occ %>% 
+  filter(!is.na(Year))
+
 #PER YEAR RESULTS
 #occurrences per year summary stat
 occ_per_year <- occ %>% 
@@ -259,7 +263,7 @@ taxon_rank <- occ %>%
   count() %>%
   mutate(percent = n/nrow(occ)*100)
 
-#Number of occurrences only identified to genus
+#Number of occurrences of taxa only identified to genus
 high_rank_genera <- occ %>%
   filter(rank == "GENUS") %>%
   group_by(genus) %>%
@@ -352,17 +356,8 @@ sp_trait %>%
 
 #test for normality, significance, effect size
 shapiro.test(sp_trait$per.change) #not normal
-wilcox.test(per.change~con_status_simp, data=sp_trait) # not sig diff (but v close)
-VD.A(per.change~con_status_simp, data=sp_trait) # negligible
-
-#Do test on species with >50 records to remove volatile occurrence poor taxa
-sp_trait_50 <- sp_trait %>% 
-  filter(noccs >= 50)
-
-#test for normality, significance, effect size
-shapiro.test(sp_trait_50$per.change) #not normal
-wilcox.test(per.change~con_status_simp, data=sp_trait_50) # sig diff
-VD.A(per.change~con_status_simp, data=sp_trait_50) #small
+wilcox.test(per.change~con_status_simp, data=sp_trait) # sig diff (but marginal?)
+VD.A(per.change~con_status_simp, data=sp_trait) # small
 
 ### Figure 5 ###
 pos <- position_jitter(width = 0.25, height = 0.1, seed = 2)
@@ -390,7 +385,7 @@ VD.A(modeStreamOrder~con_status_simp, data=sp_trait) #small
 
 # identify species with largest and smallest discharge
 sp_trait_qa_range <- sp_trait %>%
-  filter(species != "Sinanodonta beringiana")
+  filter(species != "Beringiana beringiana")
 sp_trait_qa_range %>%
   filter(medianQA_MA %in% range(sp_trait_qa_range$medianQA_MA)) %>%
   dplyr::select(species, medianQA_MA)
@@ -457,6 +452,7 @@ Figure7B <- ggplot(huc_attr_full, aes(x=n, y=per_change, label = huc8_name)) +
   guides(size = guide_legend(nrow = 1))+
   ylab("species richness change (%)")
 
+#export 8x6
 Figure7B
 
 ### TABLE 1 hackjob
@@ -471,8 +467,14 @@ cumberland_sp <- occ %>%
   group_by(species_update) %>%
   count()
 
+wabash_sp <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0512") %>%
+  group_by(species_update) %>%
+  count()
+
+
 mobile_sp <- occ %>%
-  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0316") %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0316" | huc4 == "0315") %>%
   group_by(species_update) %>%
   count()
 
@@ -492,7 +494,7 @@ muskingum_sp <- occ %>%
   count()
 
 kentuckey_sp <- occ %>%
-  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0510") %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051002") %>%
   group_by(species_update) %>%
   count()
 
@@ -512,7 +514,7 @@ kanawha_sp <- occ %>%
   count()
 
 salt_sp <- occ %>%
-  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071100") %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "07110005"| huc8 == "07110006" | huc8 == "07110007") %>%
   group_by(species_update) %>%
   count()
 
@@ -545,3 +547,22 @@ kaskaskia_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071402") %>%
   group_by(species_update) %>%
   count()
+
+
+### convert column names to DarwinCore
+colnames(records)[which(names(records) == "Institution")] <- "institutionCode"
+colnames(records)[which(names(records) == "Cat_No")] <- "catalogNumber"
+colnames(records)[which(names(records) == "orig_ident")] <- "Identification"
+colnames(records)[which(names(records) == "Country")] <- "country"
+colnames(records)[which(names(records) == "State")] <- "stateProvince"
+colnames(records)[which(names(records) == "Locality")] <- "locality"
+colnames(records)[which(names(records) == "Latitude")] <- "decimalLatitude"
+colnames(records)[which(names(records) == "Longitude")] <- "decimalLongitude"
+colnames(records)[which(names(records) == "Month")] <- "month"
+colnames(records)[which(names(records) == "Day")] <- "day"
+colnames(records)[which(names(records) == "Year")] <- "year"
+colnames(records)[which(names(records) == "Collector")] <- "recordedBy"
+colnames(records)[which(names(records) == "Remarks")] <- "eventRemarks"
+colnames(records)[which(names(records) == "Preparation")] <- "preparations"
+
+write_csv(records,"3c_all_records.csv")
