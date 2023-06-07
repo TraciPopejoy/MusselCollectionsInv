@@ -1,7 +1,7 @@
 ##############################################################################
 #APPENDIX 1.2: R script to prepare refined data for analysis 
 ##############################################################################
-
+getwd()
 # load necessary libraries
 library(sf); library(tidyverse); library(scales) # load necessary libraries.
 library(rgbif) # for taxonomic backbone
@@ -32,7 +32,7 @@ outdirNHD<-'nhdPlusV2/'
 outdirWBD<-'spatial_data/'
 PATH_OpenRefineOutput <- '3a_refined.csv'
 PATH_NHDv2 <- paste0(outdirNHD,'NHDPlusNationalData/NHDPlusV21_National_Seamless_Flattened_Lower48.gdb')
-PATH_WBD <- paste0(outdirWBD,'WBD_National_GDB.gdb/')
+PATH_WBD <- paste0(outdirWBD,'WBD_National_GDB/')
 wd <-"/Users/PfeifferJ/Desktop/GitHub/MusselCollectionsInv/" # PUT YOUR WORKING DIRECTORY HERE
 PATH_sppranges <- paste0(wd,'species ranges/')
 
@@ -161,7 +161,7 @@ mo.decs %>% as_tibble() %>% count(state_mismatch)
 ## or had NA as the verbatim state
 
 # huc10 is the dataframe that matches occurrences with hucs -- very large
-# SMK had to change to PATH_WBD<- 'spatial data/WBD_National_GDB.gdb'
+PATH_WBD<- 'spatial_data/WBD_National_GDB/WBD_National_GDB.gdb'
 huc10<-read_sf(dsn=PATH_WBD, layer='WBDHU10') %>%
   mutate(huc2=substr(huc10,1,2),
          huc4=substr(huc10,1,4),
@@ -202,7 +202,7 @@ for(s in 1:length(cuts)){
     dplyr::select(COMID, GNIS_NAME, #identifiers of each stream reach
                   StreamOrde, SLOPE, QE_MA, VE_MA) %>%
     bind_cols(occ_s %>% as_tibble()) 
-  
+
   # keeping the occurrence information used to build these plots
   all_occs<-bind_rows(all_occs, stream.i.occ)
   print(paste(cuts[s], ';', s, 'of', 
@@ -211,7 +211,7 @@ for(s in 1:length(cuts)){
 nrow(all_occs)==nrow(mo.decs.hu)
 nrow(all_occs)+nrow(mo.decs.hu %>% filter(is.na(huc10))) == nrow(mo.decs.hu)
 
-all_occs1<-mo.decs.hu %>% left_join(all_occs) 
+all_occs1<-mo.decs.hu %>% left_join(all_occs %>% as_tibble() %>% dplyr::select(-geometry))
 nrow(all_occs1)==nrow(mo.decs.hu)
 all_occs1 %>% as_tibble() %>% count(rowid) %>% filter(n!=1)
 sum(is.na(all_occs$COMID));sum(is.na(all_occs1$VE_MA)); sum(is.na(mo.decs.hu$huc10))
@@ -313,15 +313,13 @@ occ_fin<-left_join(occ_fin, mussel_taxa_key,
 ### UPDATE GBIF TAXONOMY TO FMCS CHECKLIST ####
 
 #update genus taxonomy 
-#Change Beringiana to Sinanodonta,Magnonaias to Megalonaias, etc.
-occ_fin["genus"][occ_fin["genus"]== "Beringiana"] <- "Sinanodonta"
+#Change Magnonaias to Megalonaias, etc.
 occ_fin["genus"][occ_fin["genus"]== "Magnonaias"] <- "Megalonaias"
 occ_fin["genus"][occ_fin["genus"]== "Ortmanniana"] <- "Actinonaias"
 
 #update species taxonomy
 occ_fin["species"][occ_fin["species"]== "Anodonta impura"] <- "Anodonta nuttalliana"
 occ_fin["species"][occ_fin["species"]== "Anodontoides argenteus"] <- "Anodontoides denigratus"
-occ_fin["species"][occ_fin["species"]== "Beringiana beringiana"] <- "Sinanodonta beringiana"
 occ_fin["species"][occ_fin["species"]== "Elliptio nasutidus"] <- "Elliptio producta"
 occ_fin["species"][occ_fin["species"]== "Obovaria jacksoniana"] <- "Obovaria arkansasensis"
 occ_fin["species"][occ_fin["species"]== "Ortmanniana ligamentina"] <- "Actinonaias ligamentina"
@@ -356,6 +354,7 @@ occ_fin <- occ_fin %>% filter(family == "Margaritiferidae" | family == "Unionida
 
 # grabs records that are identified as either fmcs genera AND are not ID'd to species OR fmcs checklist species  
 occ_fin <- occ_fin %>% filter(genus %in% checklist_genera & is.na(species) | species %in% checklist_species)
+
 
 ### OUTPUT ALL RECORDS
 write.csv(occ_fin, file = paste0(wd,"3c_all_records.csv"), row.names = F)
@@ -552,7 +551,7 @@ occur<-arrange(occur,rowid)
 
 # check InRange flags
 dim(occur %>% filter(InRange=='FALSE'))
-# 9753 records flagged
+# 9752 records flagged
 
 #write csvs
 write.csv(all, file=paste0(wd,"3c_all_records.csv"), row.names = F)
