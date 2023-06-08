@@ -256,7 +256,7 @@ ak_plot_n <- alas %>%
   scale_fill_viridis_c('n occurrences',
                        breaks=log1p(c(1,25,150,1750,7940)),
                        labels=function(x){round(expm1(x),3)},
-                       aesthetics=c('color','fill'))+
+                       aesthetics=c('fill', 'color'))+
   theme_void()+
   theme(legend.position='none')
 # build conterminous usa plot
@@ -272,8 +272,8 @@ usa_n<-huc8 %>%
   scale_fill_viridis_c('n occurrences',
                        breaks=log1p(c(1,25,150,1750,7940)),
                        labels=function(x){round(expm1(x),3)},
-                       aesthetics=c('color','fill'))+
-  theme_void()
+                       aesthetics=c('fill', 'color'))+
+  theme_void()+theme(legend.position='bottom')
 
 # species richness plots ---
 max(huc8.space$n_species)
@@ -288,7 +288,7 @@ ak_plot_rich <- alas %>%
   # make sure scale aligns with usa plot
   scale_fill_viridis_c('n species',
                        breaks=c(1,25,50,75,92),
-                       aesthetics=c('color','fill'))+
+                       aesthetics=c('fill', 'color'))+
   theme_void()+
   theme(legend.position='none')
 
@@ -302,8 +302,8 @@ usa_rich<-huc8 %>%
   geom_sf(data=usa_l48, fill=NA, color='lightgrey', size=0.2)+
   scale_fill_viridis_c('n species',
                        breaks=c(1,25,50,75,92),
-                       aesthetics=c('color','fill'))+
-  theme_void()
+                       aesthetics=c('fill', 'color'))+
+  theme_void()+theme(legend.position='bottom')
 
 ggsave('Fig6.pdf',
        plot_grid(ggdraw(usa_n)+
