@@ -6,7 +6,7 @@ library(cowplot); library(maps)
 
 # bring in the occurrence data
 occs_sp<-read.csv('3d_species_records.csv')
-PATH_WBD <- '/Users/PfeifferJ/Desktop/GitHub/MusselCollectionsInv/spatial_data/WBD_National_GDB.gdb'
+PATH_WBD <- '/Users/PfeifferJ/Desktop/GitHub/MusselCollectionsInv/spatial_data/WBD_National_GDB/WBD_National_GDB.gdb'
 huc8<-read_sf(dsn=PATH_WBD, layer='WBDHU8')
 crs.geo <- st_crs("+proj=longlat +ellps=WGS84 +datum=WGS84")
 crs.albers <- st_crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=km +no_defs")
@@ -239,6 +239,7 @@ alas<-read_sf(dsn=PATH_WBD, layer='WBDHU8') %>%
   # code to remove aleutian islands and other E hemisphere hucs
   mutate(huc6=substr(huc8,1,6)) %>%
   filter(huc6>= 19000, huc6 < 191000,  huc8 != 19030103)
+
 # Figure 6 -------------
 # n occurrence plots ---
 max(huc8.space$n)
@@ -273,7 +274,10 @@ usa_n<-huc8 %>%
                        breaks=log1p(c(1,25,150,1750,7940)),
                        labels=function(x){round(expm1(x),3)},
                        aesthetics=c('fill', 'color'))+
-  theme_void()+theme(legend.position='bottom')
+  theme_void()+theme(legend.position = c(0.9, 0.2),
+                     legend.key.size = unit(0.5, 'lines'),
+                     legend.text = element_text(size = 6),
+                     legend.title = element_text(size = 8))
 
 # species richness plots ---
 max(huc8.space$n_species)
@@ -303,7 +307,10 @@ usa_rich<-huc8 %>%
   scale_fill_viridis_c('n species',
                        breaks=c(1,25,50,75,92),
                        aesthetics=c('fill', 'color'))+
-  theme_void()+theme(legend.position='bottom')
+  theme_void()+theme(legend.position = c(0.9, 0.2),
+                     legend.key.size = unit(0.5, 'lines'),
+                     legend.text = element_text(size = 6),
+                     legend.title = element_text(size = 8))
 
 ggsave('Fig6.pdf',
        plot_grid(ggdraw(usa_n)+
