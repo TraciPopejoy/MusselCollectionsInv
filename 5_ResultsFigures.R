@@ -548,16 +548,17 @@ kaskaskia_sp <- occ %>%
   group_by(species_update) %>%
   count()
 
+write_csv(records,"3c_all_records.csv")
 
 ### convert column names to DarwinCore
 colnames(records)[which(names(records) == "Institution")] <- "institutionCode"
 colnames(records)[which(names(records) == "Cat_No")] <- "catalogNumber"
-colnames(records)[which(names(records) == "orig_ident")] <- "Identification"
+colnames(records)[which(names(records) == "orig_ident")] <- "identification"
 colnames(records)[which(names(records) == "Country")] <- "country"
 colnames(records)[which(names(records) == "State")] <- "stateProvince"
 colnames(records)[which(names(records) == "Locality")] <- "locality"
-colnames(records)[which(names(records) == "Latitude")] <- "decimalLatitude"
-colnames(records)[which(names(records) == "Longitude")] <- "decimalLongitude"
+colnames(records)[which(names(records) == "standardized_latitude")] <- "decimalLatitude"
+colnames(records)[which(names(records) == "standardized_longitude")] <- "decimalLongitude"
 colnames(records)[which(names(records) == "Month")] <- "month"
 colnames(records)[which(names(records) == "Day")] <- "day"
 colnames(records)[which(names(records) == "Year")] <- "year"
@@ -565,4 +566,8 @@ colnames(records)[which(names(records) == "Collector")] <- "recordedBy"
 colnames(records)[which(names(records) == "Remarks")] <- "eventRemarks"
 colnames(records)[which(names(records) == "Preparation")] <- "preparations"
 
-write_csv(records,"3c_all_records.csv")
+records <- records %>%
+  mutate(converted=case_when(converted == 1 ~ TRUE, converted == 0 ~ F))
+
+
+write_csv(records,"3c_all_records_converted.csv")
