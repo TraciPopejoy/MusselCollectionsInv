@@ -146,7 +146,7 @@ occ_per_year <- occ %>%
   group_by(Year, con_status_simp) %>%
   count() 
 
-occ_per_year$con_status_simp <- factor(occ_per_year$con_status_simp, levels = c("Listed", "Not Listed")) 
+occ_per_year$con_status_simp <- factor(occ_per_year$con_status_simp, levels = c("Imperiled", "Non-imperiled")) 
 
 # plot it
 f2a <- ggplot(occ_per_year) +
@@ -295,7 +295,7 @@ sp_trait <- sp_trait %>%
 
 #add conservation status
 sp_trait <- left_join(sp_trait, conservation_key, by = c("species" = "fmcs_species"))
-sp_trait$con_status_simp <- factor(sp_trait$con_status_simp, levels = c("Listed", "Not Listed"))
+sp_trait$con_status_simp <- factor(sp_trait$con_status_simp, levels = c("Imperiled", "Non-imperiled"))
 
 f3 <- ggplot(sp_trait, aes(x=noccs, y=aoo_HUC8_sqkm, label = species)) +
   geom_point(aes(size = noccs, color = con_status_simp,),alpha = .7) +
@@ -462,93 +462,146 @@ tenn_sp <- occ %>%
   group_by(species_update) %>%
   count()
 
+tenn_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc2 == "06")
+
 cumberland_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0513") %>%
   group_by(species_update) %>%
   count()
+
+cumberland_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0513")
 
 wabash_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0512") %>%
   group_by(species_update) %>%
   count()
 
+wabash_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0512")
 
 mobile_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0316" | huc4 == "0315") %>%
   group_by(species_update) %>%
   count()
 
+mobile_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0316" | huc4 == "0315")
+
 green_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0511") %>%
   group_by(species_update) %>%
   count()
+
+green_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0511")
 
 scioto_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0506") %>%
   group_by(species_update) %>%
   count()
 
+scioto_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0506")
+
 muskingum_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0504") %>%
   group_by(species_update) %>%
   count()
+
+muskingum_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0504")
 
 kentuckey_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051002") %>%
   group_by(species_update) %>%
   count()
 
+kentuckey_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051002")
+
 white_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "1101") %>%
   group_by(species_update) %>%
   count()
+
+white_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "1101")
 
 licking_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051001") %>%
   group_by(species_update) %>%
   count()
 
+licking_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "051001")
+
 kanawha_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0505") %>%
   group_by(species_update) %>%
   count()
 
+kanawha_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0505")
+
 salt_sp <- occ %>%
-  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "07110005"| huc8 == "07110006" | huc8 == "07110007") %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "05140102") %>%
   group_by(species_update) %>%
   count()
+
+salt_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "05140102")
 
 ouawatch_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080401" | huc6 == "080402") %>%
   group_by(species_update) %>%
   count()
 
+ouawatch_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080401" | huc6 == "080402")
+
 stfran_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080202") %>%
   group_by(species_update) %>%
   count()
+
+stfran_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "080202")
 
 illinois_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0712" | huc4 == "0713") %>%
   group_by(species_update) %>%
   count()
 
+illinois_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0712" | huc4 == "0713")
+
 rock_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0709") %>%
   group_by(species_update) %>%
   count()
+
+rock_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc4 == "0709")
 
 meramec_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "07140102") %>%
   group_by(species_update) %>%
   count()
 
+meramec_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc8 == "07140102")
+
 kaskaskia_sp <- occ %>%
   filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071402") %>%
   group_by(species_update) %>%
   count()
 
-write_csv(records,"3c_all_records.csv")
+kaskaskia_occ <- occ %>%
+  filter(!is.na(species_update),  state_mismatch == F | is.na(state_mismatch), outside_NHD == F, InRange == T, huc6 == "071402")
+
+write_csv(records,"3c_all_records_end.csv")
 
 ### convert column names to DarwinCore
 colnames(records)[which(names(records) == "Institution")] <- "institutionCode"
